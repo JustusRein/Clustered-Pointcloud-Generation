@@ -1,0 +1,5 @@
+numpy==1.26.4
+open3d==0.19.0
+scipy==1.11.4
+cadquery==2.4.0
+cadquery-ocp==7.7.2
