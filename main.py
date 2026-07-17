@@ -1,5 +1,7 @@
 import open3d as o3d
 from pathlib import Path
+import os
+import glob
 
 
 from config import *
@@ -20,8 +22,17 @@ from cloud import create_cloud
 from exporter import save_cloud
 
 
+# 🎯 Suche nach allen .step-Dateien im Ordner "input"
+step_files = glob.glob("input/*.step")
 
-STEP_FILE="input/baugruppe.step"
+# 🎯 Sortiere nach Modifikationszeit (neueste zuerst)
+step_files.sort(key=os.path.getmtime, reverse=True)
+
+# 🎯 Nimm die erste Datei (die neueste)
+if step_files:
+    STEP_FILE = step_files[0]  # <-- das ist jetzt die neueste Datei
+else:
+    raise FileNotFoundError("Keine .step-Datei im Ordner 'input' gefunden!")
 
 
 
@@ -72,6 +83,9 @@ for i,part in enumerate(parts):
         i
     )
 
+
+    filename = (OUTPUT_FOLDER + "/clusters/" + part["name"] + "_" + str(i))
+    save_cloud(cloud, filename)
 
     assembly += cloud
 
