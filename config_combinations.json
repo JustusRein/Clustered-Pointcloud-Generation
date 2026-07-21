@@ -1,0 +1,12 @@
+{
+    "input_folder": "output/clusters",
+    "output_folder": "output/combinations",
+
+    "jobs": [
+
+        {
+            "mode": "all"
+        }
+
+    ]
+}
